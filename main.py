@@ -21,7 +21,7 @@ import json
 import re
 from datetime import datetime
 
-# 模型設定：使用 Hugging Face 的 Qwen 小模型
+# 使用 Hugging Face 的 Qwen 小模型
 model_name = "Qwen/Qwen1.5-1.8B-Chat"
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True, device_map="auto")
@@ -84,7 +84,7 @@ transcription_text = extract_transcription_text(EN_sample_url)
 print("Summarizing with Qwen 1.8B...")
 summary_result = summarize_transcription(transcription_text)
 
-#  輸出結果為 JSON 格式（可讀）
+#  輸出結果為 JSON 格式
 print("\n--- Summary Output ---")
 print(summary_result.get("summary", ""))
 
@@ -96,4 +96,4 @@ filename = f"summary_output_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 with open(filename, "w", encoding="utf-8") as f:
     json.dump(summary_result, f, ensure_ascii=False, indent=2)
 
-# print(f"\n JSON 檔案已儲存為: {filename}")
+print(f"\n JSON 檔案已儲存為: {filename}")
