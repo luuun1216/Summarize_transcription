@@ -35,6 +35,7 @@ We used an instruction-style prompt to guide structured output:
 - **Model hallucination**: Smaller models like Qwen 0.5B often echo prompts or give empty outputs.
 - **Prompt robustness**: Adding "請輸出內容" improves generation reliability. I try a lot of prompt, but many of them cannot get good result.
 - **Selector tuning**: Parsing `.speech__content p` yields better results than `.speech .content` or `.main .content`
+- **Text number choose**: I try many number for input text, 5000, 2000, 1000, 500, I find that 500 is the most stable number for model. If we use bigger number, model will out of memory sometime.
 
 ---
 
