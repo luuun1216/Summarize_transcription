@@ -16,7 +16,7 @@ This project is a lightweight transcription summarization tool that extracts con
 ## ⚙️ Setup Instructions
 
 1. Clone the repo or copy the code into a Colab notebook.
-2. Install dependencies:
+2. Install dependencies in the colab:
 ```bash
 !pip install transformers accelerate beautifulsoup4 requests
 ```
@@ -41,6 +41,8 @@ The output is a dictionary with two keys:
   "conclusion": "..."
 }
 ```
+If you want to modify something, you can also check this code block.
+
 
 ---
 
@@ -62,9 +64,9 @@ This project uses the [Qwen/Qwen1.5-1.8B-Chat](https://huggingface.co/Qwen/Qwen1
 
 ---
 
-## 📌 Notes
+## 📌 Notes/Future works
 - Currently only `.speech__content p` blocks are parsed.
-- Can be extended to support speaker roles or multilingual detection.
+- Can be extended to support speaker roles or multilingual detection in the future.
 
 ---
 
