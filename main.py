@@ -7,8 +7,12 @@ Original file is located at
     https://colab.research.google.com/drive/1zGoGQFBTqE_lciEfvjsPZLQ1-JFoQgW3
 """
 
+"""
+Please install these library first
+
 !pip install transformers accelerate -q
 !pip install beautifulsoup4 requests -q
+"""
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import requests
