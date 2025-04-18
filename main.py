@@ -7,12 +7,10 @@ Original file is located at
     https://colab.research.google.com/drive/1zGoGQFBTqE_lciEfvjsPZLQ1-JFoQgW3
 """
 
-"""
-Please install these library first
 
 !pip install transformers accelerate -q
 !pip install beautifulsoup4 requests -q
-"""
+
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import requests
@@ -30,6 +28,9 @@ model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True,
 summarizer = pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=512)
 
 def debug_selectors(soup):
+    """
+    列印多組 selector 的擷取結果，主要是我用來確認有沒有抓到網頁中正確的文字區塊位置，這個主要是我來測試的。
+    """
     selectors = [
         (".speech__content", soup.select(".speech__content")),
         (".speech__content p", soup.select(".speech__content p")),
@@ -40,6 +41,10 @@ def debug_selectors(soup):
         print(f"Selector '{sel}': {len(result)} elements")
 
 def extract_transcription_text(url):
+    """
+    根據指定 URL 下載 HTML，並擷取轉錄文字內容。
+    擷取 .speech__content p 標籤下的段落文字。
+    """
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     debug_selectors(soup)
@@ -49,11 +54,20 @@ def extract_transcription_text(url):
     return transcript
 
 def clean_text(text):
+    """
+    做資料清洗，利用re library將抓取到的轉錄文字清理成單行格式：
+    - 移除多餘的換行符號與空白
+    - 轉為連續字串方便模型閱讀
+    """
     text = text.replace('\n', ' ')
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
 def build_prompt(cleaned_text):
+    """
+    根據清理後的文字建立模型輸入的 prompt。
+    引導模型生成摘要與結論。
+    """
     prompt = (
         f"這是一段會議紀錄：{cleaned_text}\n\n"
         "請你根據這段內容，簡單寫出摘要與結論。\n\n"
@@ -63,9 +77,18 @@ def build_prompt(cleaned_text):
     return prompt
 
 def summarize_transcription(text):
-    cleaned = clean_text(text)[:500]
+    """
+    總結會議轉錄文字內容：
+    1. 清理原始文字
+    2. 建立 prompt 並送入模型
+    3. 擷取摘要與結論部分
+    """
+    cleaned = clean_text(text)[:500] #可以調整要餵給模型的文字數量，我這邊設定500個字。
     prompt = build_prompt(cleaned)
+
+    # 呼叫 LLM 生成文字
     generated = summarizer(prompt)[0]['generated_text']
+    # 擷取摘要與結論內容，根據「摘要：」與「結論：」分段。
     summary_part = generated.split("摘要：")[-1]
     conclusion_split = summary_part.split("結論：")
     summary = conclusion_split[0].strip()
