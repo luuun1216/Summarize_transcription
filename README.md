@@ -70,6 +70,11 @@ This project uses the [Qwen/Qwen1.5-1.8B-Chat](https://huggingface.co/Qwen/Qwen1
 
 ---
 
+## 📜 Reference
+- Hugging face docs：https://huggingface.co/docs/transformers/main_classes/pipelines
+- Hugging face tutorial：https://transformers.run/c2/2021-12-08-transformers-note-1/
+- Web scrap tutorial：https://www.geeksforgeeks.org/python-web-scraping-tutorial/
+
 ## 📬 Contact
 Feel free to open issues or suggestions if you want enhancements!
 
