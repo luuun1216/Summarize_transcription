@@ -55,6 +55,7 @@ Each summary result is saved as a `.json` file with timestamp in filename:
   "conclusion": "總結性觀點..."
 }
 ```
+![螢幕擷取畫面 2025-04-20 090238](https://github.com/user-attachments/assets/a1df8497-b83b-4250-9481-6ce47f466caf)
 
 ---
 
